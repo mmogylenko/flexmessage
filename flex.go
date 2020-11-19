@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-// FlexMessage type, used for Msg/Err representation
+// FlexMessage type used for Msg/Err representation
 type FlexMessage struct {
 	Messages []string `json:"messages,omitempty"`
 	Errors   []string `json:"errors,omitempty"`
@@ -19,7 +19,7 @@ func (f *FlexMessage) Empty() bool {
 	return true
 }
 
-// NoErrors checks if there are any error entries
+// NoErrors method checks if there are error entries
 func (f *FlexMessage) NoErrors() bool {
 	if len(f.Errors) > 0 {
 		return false
@@ -27,7 +27,7 @@ func (f *FlexMessage) NoErrors() bool {
 	return true
 }
 
-// NoMessages checks if there are any message entries
+// NoMessages method checks if there are message entries
 func (f *FlexMessage) NoMessages() bool {
 	if len(f.Messages) > 0 {
 		return false
@@ -35,13 +35,13 @@ func (f *FlexMessage) NoMessages() bool {
 	return true
 }
 
-// Error creates a new Error entry
+// Error method creates a new Error entry
 func (f *FlexMessage) Error(err string) []string {
 	f.Errors = append(f.Errors, err)
 	return f.Errors
 }
 
-// Message creates a new Message entry
+// Message method creates a new Message entry
 func (f *FlexMessage) Message(msg string) []string {
 	f.Messages = append(f.Messages, msg)
 	return f.Messages

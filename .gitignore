@@ -13,3 +13,6 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# I'm ignoring myself as a STAR
+*.mykola

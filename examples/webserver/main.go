@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"flexmessage"
+	"github.com/mmogylenko/flexmessage"
 	"log"
 	"net/http"
 )
@@ -23,7 +23,7 @@ func main() {
 			notify.Message("Ok")
 
 		}
-		json.NewEncoder(w).Encode(notify.Compact())
+		_ = json.NewEncoder(w).Encode(notify.Compact())
 
 	})
 

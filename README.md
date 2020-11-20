@@ -25,7 +25,7 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
 to this
 ```go
 func StatusHandler(w http.ResponseWriter, r *http.Request) {
-    var notify FlexMessage
+    var notify flexmessage.FlexMessage
 
     w.Header().Set("Content-Type", "application/json")
     if r.Method != "GET" {

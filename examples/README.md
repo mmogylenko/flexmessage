@@ -1,5 +1,4 @@
-Examples
---------
+# Examples
 
 > Few examples to demonstrate **flexmessage** use-cases
 

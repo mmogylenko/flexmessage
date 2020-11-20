@@ -21,12 +21,12 @@ func (f *FlexMessage) Empty() bool {
 
 // NoErrors func checks if there are error entries
 func (f *FlexMessage) NoErrors() bool {
-	return len(f.Errors) <= 0
+	return len(f.Errors) == 0
 }
 
 // NoMessages func checks if there are message entries
 func (f *FlexMessage) NoMessages() bool {
-	return len(f.Messages) <= 0
+	return len(f.Messages) == 0
 }
 
 // Error func creates a new Error entry

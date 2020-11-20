@@ -2,7 +2,7 @@
 
 ![Go](https://github.com/mmogylenko/flexmessage/workflows/Go/badge.svg) ![Gosec](https://github.com/mmogylenko/flexmessage/workflows/Gosec/badge.svg) [![GitHub tag](https://img.shields.io/github/tag/mmogylenko/flexmessage.svg)](https://github.com/mmogylenko/flexmessage/tags/)[![GitHub Super-Linter](https://github.com/mmogylenko/flexmessage/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
-`FlexMessage` - Error Handling in a nice way :-)
+`FlexMessage` - Notifications in a nice way :-)
 
 ![gopher](https://github.com/egonelbre/gophers/blob/master/sketch/fairy-tale/messenger-red-letter.png?raw=true)
 > **MOTIVATION**: I don't know. But why not?

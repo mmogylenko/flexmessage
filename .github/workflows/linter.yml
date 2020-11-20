@@ -51,6 +51,8 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
+          GO111MODULE: on
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_EXCLUDE:  .*examples/.*

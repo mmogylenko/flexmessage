@@ -2,9 +2,10 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/mmogylenko/flexmessage"
 	"log"
 	"net/http"
+
+	"github.com/mmogylenko/flexmessage"
 )
 
 const addr = "localhost:8080"

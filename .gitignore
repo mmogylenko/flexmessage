@@ -16,3 +16,5 @@
 
 # I'm ignoring myself as a STAR
 *.mykola
+
+super-linter.log

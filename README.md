@@ -5,7 +5,40 @@
 `FlexMessage` - Notifications in a nice way :-)
 
 ![gopher](https://github.com/egonelbre/gophers/blob/master/sketch/fairy-tale/messenger-red-letter.png?raw=true)
-> **MOTIVATION**: I don't know. But why not?
+
+## Motivation
+
+>I don't know. But why not?
+
+The idea was followed by [golang declaration syntax](https://blog.golang.org/declaration-syntax). When the `HandleFunc` function from `net/http` is not explicitly returning something, why I should use `return` statement? So I went from this
+```go
+func StatusHandler(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    if r.Method != "GET" {
+        w.WriteHeader(http.StatusNotImplemented)
+        w.Write([]byte(`{"message": "not implemented"}`))
+        return
+    }
+    w.Write([]byte(`{"message": "Ok"}`))
+}
+```
+to this
+```go
+func StatusHandler(w http.ResponseWriter, r *http.Request) {
+    var notify FlexMessage
+
+    w.Header().Set("Content-Type", "application/json")
+    if r.Method != "GET" {
+        w.WriteHeader(http.StatusNotImplemented)
+        notify.Error(r.Method + " method is not implemented")
+    }
+    if notify.NoErrors() {
+        notify.Message("Ok")
+    }
+    json.NewEncoder(w).Encode(notify.Compact())
+}
+```
+More complicated handler can reveal the benefits of `FlexMessage` package.
 
 *Key Features*
 
@@ -13,15 +46,13 @@
 - Simplicity is a priority
 
 
-Installation
-------------
+## Installation
 
 ```sh
 go get -u github.com/mmogylenko/flexmessage
 ```
 
-Usage
------
+## Usage
 
 
 ```go
@@ -44,8 +75,8 @@ func main() {
 }
 ```
 
-Customization
------
+## Customization
+
 
 - `Compact()` - Returns single Message/Error when `len(Errors) == 1 ||  len(Messages) == 1`
 
@@ -53,39 +84,39 @@ Customization
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/mmogylenko/flexmessage"
+    "encoding/json"
+    "fmt"
+    "github.com/mmogylenko/flexmessage"
 )
 
 // Foo function returns an error
 func Foo() error {
-	return fmt.Errorf("Foo error")
+     return fmt.Errorf("Foo error")
 }
 
 func main() {
-	var notifications flexmessage.FlexMessage
+    var notifications flexmessage.FlexMessage
 
-	if 10 > 0 {
-		// We add our 1st Message
-		notifications.Message("Very important message")
-	}
+    if 10 > 0 {
+        // We add our 1st Message
+        notifications.Message("Very important message")
+    }
 
-	err := Foo()
-	if err != nil {
-		// We add our 1st Error
-		notifications.Error(err.Error())
-	}
+    err := Foo()
+    if err != nil {
+        // We add our 1st Error
+        notifications.Error(err.Error())
+    }
 
-	// Check if need to notify
-	if !notifications.Empty() {
-		fmt.Println("Output without Compact()")
-		s, _ := json.MarshalIndent(notifications, "", "  ")
-		fmt.Println(string(s))
-		fmt.Println("Output with Compact()")
-		c, _ := json.MarshalIndent(notifications.Compact(), "", "  ")
-		fmt.Println(string(c))
-	}
+    // Check if need to notify
+    if !notifications.Empty() {
+        fmt.Println("Output without Compact()")
+        s, _ := json.MarshalIndent(notifications, "", "  ")
+        fmt.Println(string(s))
+        fmt.Println("Output with Compact()")
+        c, _ := json.MarshalIndent(notifications.Compact(), "", "  ")
+        fmt.Println(string(c))
+    }
 }
 ```
 
@@ -107,12 +138,11 @@ Output with Compact()
 }
 ```
 
-Examples
---------
+## Examples
+
 Check [examples](examples) directory for a use-cases of `flexmessage` usage
 
 
-Licensing
----------
+## Licensing
 
 This project is licensed under the Apache V2 License. See [LICENSE](LICENSE) for more information.

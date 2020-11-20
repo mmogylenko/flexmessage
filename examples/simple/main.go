@@ -2,10 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/mmogylenko/flexmessage"
-
-	"fmt"
 )
 
 // Foo function returns error

@@ -5,7 +5,42 @@
 `FlexMessage` - Notifications in a nice way :-)
 
 ![gopher](https://github.com/egonelbre/gophers/blob/master/sketch/fairy-tale/messenger-red-letter.png?raw=true)
-> **MOTIVATION**: I don't know. But why not?
+
+Motivation
+----------
+>I don't know. But why not?
+
+The idea was followed by [golang declaration syntax](https://blog.golang.org/declaration-syntax). When the `HandleFunc` function from `net/http` is not explicitly returning something, why I should use `return` statement? So I went from this
+```go
+func StatusHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusNotImplemented)
+		w.Write([]byte(`{"message": "not implemented"}`))
+		return
+	}
+	w.Write([]byte(`{"message": "Ok"}`))
+}
+```
+to this
+```go
+func StatusHandler(w http.ResponseWriter, r *http.Request) {
+	var notify FlexMessage
+
+	w.Header().Set("Content-Type", "application/json")
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusNotImplemented)
+		notify.Error(r.Method + " method is not implemented")
+	}
+	if notify.NoErrors() {
+		notify.Message("Ok")
+
+	}
+	json.NewEncoder(w).Encode(notify.Compact())
+
+}
+```
+More complicated handler can reveal the benefits of `FlexMessage` package.
 
 *Key Features*
 

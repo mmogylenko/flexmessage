@@ -80,7 +80,7 @@ func main() {
 
 
 - `Compact()` - Returns single Message/Error when `len(Errors) == 1 ||  len(Messages) == 1`
-- `NewFlexMessage()` - as for now, ability to configure `ExitCode` value
+- `NewFlexMessage()` - as for now, ability to configure `ErrorExitCode` value
 
 ```go
 package main

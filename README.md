@@ -88,6 +88,8 @@ package main
 import (
     "encoding/json"
     "fmt"
+    "os"
+
     "github.com/mmogylenko/flexmessage"
 )
 

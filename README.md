@@ -44,7 +44,6 @@ More complicated handler can reveal the benefits of `FlexMessage` package.
 
 - It *MAY WORK* or may not
 - Simplicity is a priority
-- Exit Codes management
 
 
 ## Installation
@@ -80,7 +79,6 @@ func main() {
 
 
 - `Compact()` - Returns single Message/Error when `len(Errors) == 1 ||  len(Messages) == 1`
-- `NewFlexMessage()` - as for now, ability to configure `ErrorExitCode` value
 
 ```go
 package main
@@ -88,8 +86,6 @@ package main
 import (
     "encoding/json"
     "fmt"
-    "os"
-
     "github.com/mmogylenko/flexmessage"
 )
 
@@ -99,8 +95,7 @@ func Foo() error {
 }
 
 func main() {
-    notifications := flexmessage.NewFlexMessage()
-    notifications.ErrorExitCode = 100
+    var notifications flexmessage.FlexMessage
 
     if 10 > 0 {
         // We add our 1st Message
@@ -122,7 +117,6 @@ func main() {
         c, _ := json.MarshalIndent(notifications.Compact(), "", "  ")
         fmt.Println(string(c))
     }
-    os.Exit(notifications.ExitCode())
 }
 ```
 
@@ -142,7 +136,6 @@ Output with Compact()
   "error": "Foo error",
   "message": "Very important message"
 }
-exit status 100
 ```
 
 ## Examples

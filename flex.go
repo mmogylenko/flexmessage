@@ -6,8 +6,18 @@ import (
 
 // FlexMessage type used for Msg/Err representation
 type FlexMessage struct {
-	Messages []string `json:"messages,omitempty"`
-	Errors   []string `json:"errors,omitempty"`
+	Messages      []string `json:"messages,omitempty"`
+	Errors        []string `json:"errors,omitempty"`
+	ErrorExitCode int      `json:"-"`
+}
+
+// NewFlexMessage returns a new FlexMessage with a default values
+func NewFlexMessage() *FlexMessage {
+	return &FlexMessage{
+		Messages:      nil,
+		Errors:        nil,
+		ErrorExitCode: 1,
+	}
 }
 
 // Empty func checks if there are any notifications
@@ -68,4 +78,12 @@ func (f *FlexMessage) Compact() *map[string]interface{} {
 	}
 
 	return &message
+}
+
+// ExitCode not 0 when there are errors
+func (f *FlexMessage) ExitCode() int {
+	if f.NoErrors() {
+		return 0
+	}
+	return f.ErrorExitCode
 }

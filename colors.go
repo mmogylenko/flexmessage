@@ -112,7 +112,7 @@ func (cs *ColoringSchema) colorize(colorString string, format string, args ...in
 		color = colors[strings.ToLower("default")]
 	}
 
-	if cs.DisableColors == true {
+	if cs.DisableColors {
 		return fmt.Sprintf(format, args...)
 	}
 	return fmt.Sprintf(color,

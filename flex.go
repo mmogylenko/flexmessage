@@ -91,7 +91,7 @@ func (f *FlexMessage) Print(options *PrintOptions) {
 	var s []byte
 	var compact map[string]interface{}
 
-	if !f.NoMessages() {
+	if !f.Empty() {
 		if options.Compact {
 			compact = f.Compact()
 		} else {
@@ -123,5 +123,5 @@ func Colorize(obj interface{}, schema *ColoringSchema) string {
 
 	cs.colorizeValue(obj, &b, initialDepth)
 
-	return string(b.Bytes())
+	return b.String()
 }

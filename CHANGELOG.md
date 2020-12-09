@@ -1,5 +1,13 @@
 # FlexMessage CHANGELOG
 
+## FlexMessage 0.0.4
+
+- `golangci-lint` instead of `github/super-linter`
+
+**BUGs**
+
+- Fixed `Print()` function (Issue #7)[https://github.com/mmogylenko/flexmessage/issues/7]
+
 ## FlexMessage 0.0.3
 
 - Renamed `Reset()` to `Flush()`

@@ -144,9 +144,9 @@ Output with Compact()
 ```go
 // PrintOptions messages print options
 type PrintOptions struct {
-	Colors  bool
-	Compact bool
-	Indent  int
+    Colors  bool
+    Compact bool
+    Indent  int
 }
 ```
 [Example](examples) of `Print()`:

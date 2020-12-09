@@ -1,5 +1,9 @@
 # FlexMessage CHANGELOG
 
+## FlexMessage 0.0.5
+
+- Re-release `v0.0.4` version
+
 ## FlexMessage 0.0.4
 
 - `golangci-lint` instead of `github/super-linter`

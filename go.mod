@@ -1,5 +1,3 @@
-module flexmessage
+module github.com/mmogylenko/flexmessage
 
 go 1.15
-
-require github.com/mmogylenko/flexmessage v0.0.3

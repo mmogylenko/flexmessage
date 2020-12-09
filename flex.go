@@ -1,6 +1,9 @@
 package flexmessage
 
 import (
+	"bytes"
+	"encoding/json"
+	"fmt"
 	"strings"
 )
 
@@ -8,6 +11,13 @@ import (
 type FlexMessage struct {
 	Messages []string `json:"messages,omitempty"`
 	Errors   []string `json:"errors,omitempty"`
+}
+
+// PrintOptions messages print options
+type PrintOptions struct {
+	Colors  bool
+	Compact bool
+	Indent  int
 }
 
 // Empty func checks if there are any notifications
@@ -41,14 +51,14 @@ func (f *FlexMessage) Message(msg string) []string {
 	return f.Messages
 }
 
-// Reset func both Errors and Messages
-func (f *FlexMessage) Reset() {
+// Flush func clears both Errors and Messages
+func (f *FlexMessage) Flush() {
 	var zeroF = &FlexMessage{}
 	*f = *zeroF
 }
 
 // Compact func makes FlexMessage tiny :-)
-func (f *FlexMessage) Compact() *map[string]interface{} {
+func (f *FlexMessage) Compact() map[string]interface{} {
 	message := make(map[string]interface{})
 
 	if !f.NoErrors() {
@@ -67,5 +77,51 @@ func (f *FlexMessage) Compact() *map[string]interface{} {
 		}
 	}
 
-	return &message
+	return message
+}
+func (f *FlexMessage) toMap() map[string]interface{} {
+	return map[string]interface{}{
+		"Messages": f.Messages,
+		"Errors":   f.Errors,
+	}
+}
+
+// Print func prints messages
+func (f *FlexMessage) Print(options *PrintOptions) {
+	var s []byte
+	var compact map[string]interface{}
+
+	if !f.NoMessages() {
+		if options.Compact {
+			compact = f.Compact()
+		} else {
+			compact = f.toMap()
+		}
+
+		if options.Indent > 0 {
+			s, _ = json.MarshalIndent(compact, "", strings.Repeat(" ", options.Indent))
+		} else {
+			s, _ = json.Marshal(compact)
+		}
+
+		if options.Colors {
+			out := Colorize(compact, &ColoringSchema{Indent: options.Indent})
+			fmt.Println(string(out))
+		} else {
+
+			fmt.Println(string(s))
+		}
+
+	}
+
+}
+
+// Colorize just add some colors...
+func Colorize(obj interface{}, schema *ColoringSchema) string {
+	var b = bytes.Buffer{}
+	cs := schema.New()
+
+	cs.colorizeValue(obj, &b, initialDepth)
+
+	return string(b.Bytes())
 }

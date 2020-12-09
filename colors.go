@@ -8,12 +8,10 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-
-	log "github.com/sirupsen/logrus"
 )
 
 var colors = map[string]string{
-	"default": "\033[1;37m%s\033[0m",
+	"default": "\033[1;36m%s\033[0m",
 	"black":   "\033[1;30m%s\033[0m",
 	"red":     "\033[1;31m%s\033[0m",
 	"green":   "\033[1;32m%s\033[0m",
@@ -167,7 +165,9 @@ func (cs *ColoringSchema) colorizeValue(val interface{}, b *bytes.Buffer, depth 
 	case json.Number:
 		b.WriteString(cs.colorize(cs.NumberColor, v.String()))
 	default:
-		log.Error("Unsupported type ", fmt.Sprintf("%T", val), " FOR ", val)
+		fmt.Println(
+			fmt.Errorf("Unsupported type %T for %v", val, val),
+		)
 	}
 
 }

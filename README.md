@@ -44,6 +44,7 @@ More complicated handler can reveal the benefits of `FlexMessage` package.
 
 - It *MAY WORK* or may not
 - Simplicity is a priority
+- Colors!!! I love colors!
 
 
 ## Installation
@@ -137,6 +138,20 @@ Output with Compact()
   "message": "Very important message"
 }
 ```
+
+- `Print()` - Prints messages type `PrintOptions` used for print options:
+
+```go
+// PrintOptions messages print options
+type PrintOptions struct {
+	Colors  bool
+	Compact bool
+	Indent  int
+}
+```
+[Example](examples) of `Print()`:
+![flexmesssage_colors_example](https://user-images.githubusercontent.com/7536624/101554300-3184c200-396b-11eb-8256-cc60e2ff3b1b.png)
+
 
 ## Examples
 
